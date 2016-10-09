@@ -1,12 +1,12 @@
-[![Build Status](https://travis-ci.org/calmm-js/kral-examples.svg?branch=master)](https://travis-ci.org/calmm-js/kral-examples) [![](https://david-dm.org/calmm-js/kral-examples.svg)](https://david-dm.org/calmm-js/kral-examples) [![](https://david-dm.org/calmm-js/kral-examples/dev-status.svg)](https://david-dm.org/calmm-js/kral-examples?type=dev)
+[![Build Status](https://travis-ci.org/calmm-js/karet-examples.svg?branch=master)](https://travis-ci.org/calmm-js/karet-examples) [![](https://david-dm.org/calmm-js/karet-examples.svg)](https://david-dm.org/calmm-js/karet-examples) [![](https://david-dm.org/calmm-js/karet-examples/dev-status.svg)](https://david-dm.org/calmm-js/karet-examples?type=dev)
 
-Prebuilt site: [Kefir+React+Atom Examples](http://calmm-js.github.io/kral-examples/public/index.html)
+Prebuilt site: [Kefir+React+Atom Examples](http://calmm-js.github.io/karet-examples/public/index.html)
 
 To try locally:
 
 ```bash
-git clone https://github.com/calmm-js/kral-examples.git
-cd kral-examples
+git clone https://github.com/calmm-js/karet-examples.git
+cd karet-examples
 npm install
 ```
 
