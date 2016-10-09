@@ -1,13 +1,13 @@
 import * as Kefir from "kefir"
 import K          from "karet.util"
 
-Kefir.Observable.prototype.mapK = function (f) {
-  return K(this, f)
+Kefir.Observable.prototype.mapK = function (mapping) {
+  return K(this, mapping)
 }
 
-Kefir.Observable.prototype.set = function (settable) {
+Kefir.Observable.prototype.do = function (action) {
   return this.mapK(v => {
-    settable.set(v)
+    action(v)
     return null
   })
 }
