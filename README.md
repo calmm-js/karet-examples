@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/calmm-js/karet-examples.svg?branch=master)](https://travis-ci.org/calmm-js/karet-examples) [![](https://david-dm.org/calmm-js/karet-examples.svg)](https://david-dm.org/calmm-js/karet-examples) [![](https://david-dm.org/calmm-js/karet-examples/dev-status.svg)](https://david-dm.org/calmm-js/karet-examples?type=dev)
 
-Prebuilt site: [Kefir+React+Atom Examples](http://calmm-js.github.io/karet-examples/public/index.html)
+Prebuilt site: [Examples](http://calmm-js.github.io/karet-examples/public/index.html)
 
 To try locally:
 
