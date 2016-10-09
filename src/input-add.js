@@ -3,6 +3,8 @@ import Atom, {holding} from "kefir.atom"
 import K, {bind}       from "karet.util"
 import React           from "karet"
 
+import * as U          from "./util"
+
 export default ({elems = Atom([]), entry = Atom("")}) =>
   <div>
     <div>
@@ -14,7 +16,5 @@ export default ({elems = Atom([]), entry = Atom("")}) =>
         Add
       </button>
     </div>
-    <ul>
-      {K(elems, elems => elems.map((elem, i) => <li key={i}>{elem}</li>))}
-    </ul>
+    <ul>{K(elems, U.mapi((elem, i) => <li key={i}>{elem}</li>))}</ul>
   </div>
