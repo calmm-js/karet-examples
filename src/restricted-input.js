@@ -1,6 +1,6 @@
 import Atom         from "kefir.atom"
-import K, {classes} from "kefir.react.html"
-import React        from "react"
+import K, {classes} from "karet.util"
+import React        from "karet"
 
 export const RestrictedInput = ({value, meta: {format, parse}, ...props}) => {
   const edited = Atom()
@@ -10,25 +10,25 @@ export const RestrictedInput = ({value, meta: {format, parse}, ...props}) => {
     edited.set()
     e.target.blur()
   }
-  return <K.input {...classes("restricted-input",
-                              K(shown, shown =>
-                                parse(shown) !== undefined
-                                ? "valid"
-                                : "invalid"))}
-                  value={shown}
-                  onChange={e => {
-                    const input = e.target.value
-                    const result = parse(input)
-                    if (result !== undefined) {
-                      edited.set()
-                      value.set(result)
-                    } else {
-                      edited.set(input)
-                    }
-                  }}
-                  onKeyDown={e => e.key === "Escape" && exit(e)}
-                  onBlur={exit}
-                  {...props}/>
+  return <input {...classes("restricted-input",
+                            K(shown, shown =>
+                              parse(shown) !== undefined
+                              ? "valid"
+                              : "invalid"))}
+                value={shown}
+                onChange={e => {
+                  const input = e.target.value
+                  const result = parse(input)
+                  if (result !== undefined) {
+                    edited.set()
+                    value.set(result)
+                  } else {
+                    edited.set(input)
+                  }
+                }}
+                onKeyDown={e => e.key === "Escape" && exit(e)}
+                onBlur={exit}
+                {...props}/>
 }
 
 export const number = {

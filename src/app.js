@@ -1,4 +1,4 @@
-import React    from "react"
+import React    from "karet"
 import ReactDOM from "react-dom"
 
 import Main from "./main"

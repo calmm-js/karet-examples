@@ -1,9 +1,9 @@
 import Atom      from "kefir.atom"
-import K, {bind} from "kefir.react.html"
-import React     from "react"
+import K, {bind} from "karet.util"
+import React     from "karet"
 
 export default ({checked = Atom(false)}) =>
   <div>
-    <label><K.input type="checkbox" {...bind({checked})}/>Toggle me</label>
-    <K.p>{K(checked, c => c ? "ON" : "off")}</K.p>
+    <label><input type="checkbox" {...bind({checked})}/>Toggle me</label>
+    <p>{K(checked, c => c ? "ON" : "off")}</p>
   </div>

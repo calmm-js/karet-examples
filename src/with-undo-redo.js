@@ -1,14 +1,14 @@
 import * as R from "ramda"
-import K      from "kefir.react.html"
-import React  from "react"
+import K      from "karet.util"
+import React  from "karet"
 
 export default ({undo, redo, ...props}) =>
   <div>
     <div>
-      <K.button disabled={K(undo.has, R.not)}
-                onClick={undo}>Undo</K.button>
-      <K.button disabled={K(redo.has, R.not)}
-                onClick={redo}>Redo</K.button>
+      <button disabled={K(undo.has, R.not)}
+              onClick={undo}>Undo</button>
+      <button disabled={K(redo.has, R.not)}
+              onClick={redo}>Redo</button>
     </div>
-    <K.div {...props}/>
+    <div {...props}/>
   </div>

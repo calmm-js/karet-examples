@@ -1,9 +1,9 @@
 import * as L                  from "partial.lenses"
 import Atom                    from "kefir.atom"
-import K, {bind}               from "kefir.react.html"
-import React                   from "react"
+import React                   from "karet"
 import makeStored, {expireNow} from "atom.storage"
 import makeUndo                from "atom.undo"
+import {bind}                  from "karet.util"
 
 import BMI               from "./bmi-control"
 import * as BM           from "./bmi-meta"
@@ -22,24 +22,24 @@ import {pass, scope}     from "./util"
 
 const Undo = props => makeUndo({Atom, ...props})
 const Stored = ({key, ...props}) =>
-  makeStored({key: `kral-examples:${key}`,
+  makeStored({key: `karet-examples:${key}`,
               storage: localStorage,
               time: 15*60*1000, // 15 minutes
               Atom,
               debounce: 250, ...props})
 
-expireNow({storage: localStorage, regex: /^kral-examples:/})
+expireNow({storage: localStorage, regex: /^karet-examples:/})
 
 const Src = ({src, lines = ""}) =>
   <a target="_blank"
-     href={`https://github.com/calmm-js/kral-examples/blob/master/src/${src}${lines}`}>{src}</a>
+     href={`https://github.com/calmm-js/karet-examples/blob/master/src/${src}${lines}`}>{src}</a>
 
 const HL = ({id, children}) => <h2 id={id}><a href={`#${id}`}>{children}</a></h2>
 
 export default () => <main>
-    <h1>Kefir+React+Atom Examples</h1>
+    <h1>Karet Examples</h1>
 
-    <a href="https://github.com/calmm-js/kral-examples">GitHub</a>
+    <a href="https://github.com/calmm-js/karet-examples">GitHub</a>
 
     <section>
       <HL id="big-table">Big table</HL>
@@ -47,10 +47,10 @@ export default () => <main>
         const model = Atom(BT.mock)
 
         const Slider = ({prop, ...props}) =>
-          <K.label>{prop}: {model.view(prop)}
-            <K.input type="range" {...props} style={{width: "100%"}}
-                     {...bind({value: model.lens(prop, L.normalize(Number))})}/>
-          </K.label>
+          <label>{prop}: {model.view(prop)}
+            <input type="range" {...props} style={{width: "100%"}}
+                   {...bind({value: model.lens(prop, L.normalize(Number))})}/>
+          </label>
 
         return <div>
             <Slider min={50} max={1000} prop="tableHeight"/>

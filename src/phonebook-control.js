@@ -1,6 +1,6 @@
 import Atom         from "kefir.atom"
-import K, {fromIds} from "kefir.react.html"
-import React        from "react"
+import K, {fromIds} from "karet.util"
+import React        from "karet"
 
 import TextInput from "./text-input"
 import * as M    from "./phonebook-meta"
@@ -13,10 +13,10 @@ const Contact = ({contact}) =>
   </div>
 
 const Contacts = ({contacts}) =>
-  <K.div>
+  <div>
     {fromIds(K(contacts, M.Contacts.indices), i =>
      <Contact key={i} contact={contacts.lens(i)}/>)}
-  </K.div>
+  </div>
 
 export default ({phonebook = Atom(M.mock)}) =>
   <div>

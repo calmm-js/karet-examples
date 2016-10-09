@@ -1,8 +1,8 @@
 import * as L                  from "partial.lenses"
 import * as R                  from "ramda"
 import Atom                    from "kefir.atom"
-import K, {bindProps, fromIds} from "kefir.react.html"
-import React                   from "react"
+import K, {bindProps, fromIds} from "karet.util"
+import React                   from "karet"
 import {mapi}                  from "./util"
 
 import * as Window from "./window"
@@ -25,24 +25,24 @@ const visibleRows = ({tableHeight, rowHeight, rowCount}, scrollTop) =>
 
 const THead = ({columns}) =>
   <thead>
-    <K.tr>
+    <tr>
       {K(columns, mapi((column, i) =>
-         <K.th key={i} style={cellWidth(columns)}>{column}</K.th>))}
-    </K.tr>
+         <th key={i} style={cellWidth(columns)}>{column}</th>))}
+    </tr>
   </thead>
 
 const TBody = ({model, visibleRows}) =>
-  <K.tbody>
+  <tbody>
     {fromIds(K(visibleRows, ({begin, end}) => R.range(begin, end)), i =>
-       <K.tr key={i}
-             style={{position: "absolute",
-                     top: K(model, ({rowHeight}) => i * rowHeight + "px"),
-                     borderBottom: "1px solid grey"}}>
+       <tr key={i}
+           style={{position: "absolute",
+                   top: K(model, ({rowHeight}) => i * rowHeight + "px"),
+                   borderBottom: "1px solid grey"}}>
          {K(model.view(L.props("toRow", "columns")), ({toRow, columns}) =>
             toRow(i).map((column, i) =>
-              <K.td style={cellWidth(columns)} key={i}>{column}</K.td>))}
-       </K.tr>)}
-  </K.tbody>
+              <td style={cellWidth(columns)} key={i}>{column}</td>))}
+       </tr>)}
+  </tbody>
 
 export default ({model = mock, scrollTop = Atom(0)}) =>
   <div>
@@ -51,14 +51,14 @@ export default ({model = mock, scrollTop = Atom(0)}) =>
                    borderBottom: "1px solid black"}}>
       <THead columns={K(model, R.prop("columns"))}/>
     </table>
-    <K.div {...bindProps({ref: "onScroll", scrollTop})}
-           style={{position: "relative",
-                   overflowX: "hidden",
-                   borderBottom: "1px solid black",
-                   height: K(model, ({tableHeight}) => tableHeight + "px")}}>
-      <K.table style={{height: K(model, ({rowCount, rowHeight}) =>
-                                 rowCount * rowHeight + "px")}}>
+    <div {...bindProps({ref: "onScroll", scrollTop})}
+         style={{position: "relative",
+                 overflowX: "hidden",
+                 borderBottom: "1px solid black",
+                 height: K(model, ({tableHeight}) => tableHeight + "px")}}>
+      <table style={{height: K(model, ({rowCount, rowHeight}) =>
+                               rowCount * rowHeight + "px")}}>
         <TBody {...{model, visibleRows: K(model, scrollTop, visibleRows)}}/>
-      </K.table>
-    </K.div>
+      </table>
+    </div>
   </div>

@@ -1,10 +1,10 @@
 import * as Kefir from "kefir"
-import K          from "kefir.react.html"
-import React      from "react"
+import K          from "karet.util"
+import React      from "karet"
 
 const oncePerSecond = Kefir.constant().merge(Kefir.interval(1000))
 
 export default () =>
-  <K.div>
+  <div>
     {K(oncePerSecond, () => new Date().toString())}
-  </K.div>
+  </div>
