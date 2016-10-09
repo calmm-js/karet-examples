@@ -1,6 +1,6 @@
-import Atom         from "kefir.atom"
-import K, {classes} from "karet.util"
-import React        from "karet"
+import Atom, {holding} from "kefir.atom"
+import K, {classes}    from "karet.util"
+import React           from "karet"
 
 export const RestrictedInput = ({value, meta: {format, parse}, ...props}) => {
   const edited = Atom()
@@ -16,16 +16,11 @@ export const RestrictedInput = ({value, meta: {format, parse}, ...props}) => {
                               ? "valid"
                               : "invalid"))}
                 value={shown}
-                onChange={e => {
-                  const input = e.target.value
-                  const result = parse(input)
-                  if (result !== undefined) {
-                    edited.set()
-                    value.set(result)
-                  } else {
-                    edited.set(input)
-                  }
-                }}
+                onChange={({target: {value: input}}, result = parse(input)) =>
+                          result !== undefined
+                          ? holding(() => {edited.set()
+                                           value.set(result)})
+                          : edited.set(input)}
                 onKeyDown={e => e.key === "Escape" && exit(e)}
                 onBlur={exit}
                 {...props}/>
