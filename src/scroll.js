@@ -39,15 +39,13 @@ const Scroller = ({scrollTop, scrollLeft}) =>
 
 const ScrollInput = ({label, ...props}) =>
   <div>
-    <label>{label}
-      <NumberInput {...props}/>
-    </label>
+    <label>{label} <NumberInput {...props}/></label>
   </div>
 
 export default ({scrollTop = Atom(0), scrollLeft = Atom(0)}) =>
   <div>
     <Scroller {...{scrollTop, scrollLeft}}/>
     <Scroller {...{scrollTop, scrollLeft}}/>
-    <ScrollInput type="text"   label="y " value={scrollTop}/>
-    <ScrollInput type="number" label="x " value={scrollLeft}/>
+    <ScrollInput type="text"   label="y" value={scrollTop}/>
+    <ScrollInput type="number" label="x" value={scrollLeft}/>
   </div>
