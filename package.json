@@ -2,16 +2,16 @@
   "name": "karet-examples",
   "private": true,
   "description": "Karet Examples",
-  "main": "public/app.js",
+  "main": "docs/app.js",
   "scripts": {
     "build": "npm run build:js && npm run build:css",
-    "build:css": "lessc src/main.less public/bundle.css",
-    "build:js": "cp node_modules/babel-polyfill/dist/polyfill.min.js public/app.js && NODE_ENV=production browserify src/app.js -t babelify -t envify -g uglifyify >> public/app.js",
+    "build:css": "lessc src/main.less docs/bundle.css",
+    "build:js": "cp node_modules/babel-polyfill/dist/polyfill.min.js docs/app.js && NODE_ENV=production browserify src/app.js -t babelify -t envify -g uglifyify >> docs/app.js",
     "lint": "eslint src test",
     "prepublish": "npm run lint && npm run build",
     "watch": "npm run watch:js & npm run watch:css",
     "watch:css": "npm run build:css && watch-run -p 'src/*.less' 'npm run build:css'",
-    "watch:js": "watchify src/app.js -v -t [ babelify --sourceMaps=inline ] -o public/app.js"
+    "watch:js": "watchify src/app.js -v -t [ babelify --sourceMaps=inline ] -o docs/app.js"
   },
   "repository": {
     "type": "git",

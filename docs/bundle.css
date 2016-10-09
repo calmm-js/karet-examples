@@ -1,0 +1,18 @@
+.bmi .bmi-value {
+  font-weight: bold;
+}
+.bmi.bmi-underweight .bmi-value {
+  color: gold;
+}
+.bmi.bmi-normal .bmi-value {
+  color: green;
+}
+.bmi.bmi-overweight .bmi-value {
+  color: orange;
+}
+.bmi.bmi-obese .bmi-value {
+  color: red;
+}
+.restricted-input.invalid {
+  color: red;
+}
