@@ -18,7 +18,7 @@ import * as PM           from "./phonebook-meta"
 import Scroll            from "./scroll"
 import Converter         from "./converter"
 import BigTable, * as BT from "./big-table-control"
-import {pass, scope}     from "./util"
+import {scope}           from "./util"
 
 const Undo = props => makeUndo({Atom, ...props})
 const Stored = ({key, ...props}) =>
@@ -102,13 +102,13 @@ export default () => <main>
 
     <section>
       <HL id="undo-redo-checkboxes">Checkboxes with Undo-Redo</HL>
-      {pass(Undo({value: [true, false, true],
-                  Atom: value => Stored({key: "undo-redo-checkboxes",
-                                         value})}), checkeds =>
-            <WithUndoRedo undo={checkeds.undo}
-                          redo={checkeds.redo}>
-              <Checkboxes checkeds={checkeds.lens(L.define([]))}/>
-            </WithUndoRedo>)}
+      {scope((checkeds = Undo({value: [true, false, true],
+                               Atom: value => Stored({key: "undo-redo-checkboxes",
+                                                      value})})) =>
+             <WithUndoRedo undo={checkeds.undo}
+                           redo={checkeds.redo}>
+               <Checkboxes checkeds={checkeds.lens(L.define([]))}/>
+             </WithUndoRedo>)}
       <ul>
         <li><Src src="with-undo-redo.js"/></li>
         <li><Src src="checkboxes.js"/></li>
@@ -136,13 +136,13 @@ export default () => <main>
 
     <section>
       <HL id="phonebook">Phonebook</HL>
-      {pass(Stored({key: "phonebook",
-                    value: PM.mock,
-                    Atom: value => Undo({value})}), phonebook =>
-            <WithUndoRedo undo={phonebook.undo}
-                          redo={phonebook.redo}>
-              <Phonebook {...{phonebook}}/>
-            </WithUndoRedo>)}
+      {scope((phonebook = Stored({key: "phonebook",
+                                  value: PM.mock,
+                                  Atom: value => Undo({value})})) =>
+             <WithUndoRedo undo={phonebook.undo}
+                           redo={phonebook.redo}>
+               <Phonebook {...{phonebook}}/>
+             </WithUndoRedo>)}
       <ul>
         <li><Src src="phonebook-control.js"/></li>
         <li><Src src="phonebook-meta.js"/></li>
@@ -163,9 +163,9 @@ export default () => <main>
     <section>
       <HL id="bmi-shared">BMI controls with a shared model</HL>
       <div style={{display: "flex"}}>
-        {pass(Stored({key: "bmi-shared", value: BM.mock}), bmi =>
-              [<BMI key="1" bmi={bmi}/>,
-               <BMI key="2" bmi={bmi}/>])}
+        {scope((bmi = Stored({key: "bmi-shared", value: BM.mock})) =>
+               [<BMI key="1" bmi={bmi}/>,
+                <BMI key="2" bmi={bmi}/>])}
       </div>
       <ul>
         <li><Src src="main.js" lines="#L166-L168"/></li>
