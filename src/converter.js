@@ -5,7 +5,8 @@ import {NumberInput} from "./restricted-input"
 
 export default ({celcius = Atom(0), fahrenheit = Atom()}) =>
   <p>
-    <NumberInput type="text" value={celcius}/>°C&nbsp;is&nbsp;
+    <NumberInput type="text" value={celcius}/>°C
+    <br/>
     <NumberInput type="text" value={fahrenheit}/>°F
     {celcius.mapK(c => c * 9/5 + 32).set(fahrenheit)}
     {fahrenheit.mapK(f => 5/9 * (f - 32)).set(celcius)}
