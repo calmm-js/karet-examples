@@ -1,3 +1,4 @@
+import "./monkey"
 import * as L                  from "partial.lenses"
 import Atom                    from "kefir.atom"
 import React                   from "karet"
@@ -27,7 +28,6 @@ const Stored = ({key, ...props}) =>
               time: 15*60*1000, // 15 minutes
               Atom,
               debounce: 250, ...props})
-
 expireNow({storage: localStorage, regex: /^karet-examples:/})
 
 const Src = ({src, lines = ""}) =>
@@ -92,8 +92,8 @@ export default () => <main>
     </section>
 
     <section>
-      <HL id="converter">Celcius to Fahrenheit converter</HL>
-      <Converter value={Stored({key: "converter", value: 0})}/>
+      <HL id="converter">Celcius &lt;-&gt; Fahrenheit converter</HL>
+      <Converter celcius={Stored({key: "celcius", value: 0})}/>
       <ul>
         <li><Src src="converter.js"/></li>
         <li><Src src="main.js" lines="#L96"/></li>
