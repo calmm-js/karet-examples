@@ -6,7 +6,6 @@ export const mock =
 
 export const Contact = {
   create: ({name = "", number = ""} = {}) => ({name, number}),
-  remove: () => {},
   id: "id",
   name: "name",
   number: "number"

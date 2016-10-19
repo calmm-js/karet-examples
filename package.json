@@ -28,7 +28,7 @@
     "karet": "^0.1.3",
     "karet.util": "^0.1.4",
     "kefir": "^3.5.2",
-    "kefir.atom": "^2.4.0",
+    "kefir.atom": "^2.5.0",
     "partial.lenses": "^3.8.0",
     "ramda": "^0.22.1",
     "react-dom": "^15.3.2"

@@ -9,7 +9,7 @@ const Contact = ({contact}) =>
   <div>
     <TextInput value={contact.lens(M.Contact.name)}/>
     <TextInput value={contact.lens(M.Contact.number)}/>
-    <button onClick={() => contact.modify(M.Contact.remove)}>Remove</button>
+    <button onClick={() => contact.remove()}>Remove</button>
   </div>
 
 const Contacts = ({contacts}) =>

@@ -6,7 +6,7 @@ import Checkbox from "./checkbox"
 
 const RemovableCheckbox = ({checked}) =>
   <div style={{margin: "0.5em"}}>
-    <button onClick={() => checked.set()}>Remove</button>
+    <button onClick={() => checked.remove()}>Remove</button>
     <Checkbox {...{checked}}/>
   </div>
 
