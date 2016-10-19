@@ -11,7 +11,7 @@
     "prepublish": "npm run lint && npm run build",
     "watch": "npm run watch:js & npm run watch:css",
     "watch:css": "npm run build:css && watch-run -p 'src/*.less' 'npm run build:css'",
-    "watch:js": "watchify src/app.js -v -t [ babelify --sourceMaps=inline ] -o docs/app.js"
+    "watch:js": "watchify src/app.js -v --loadMaps --debug -t babelify -o docs/app.js"
   },
   "repository": {
     "type": "git",
