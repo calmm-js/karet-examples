@@ -155,11 +155,11 @@ export default () => <main>
       <BMI/>
       <ul>
         <li><Src src="bmi-control.js"/></li>
+        <li><Src src="slider.js"/></li>
         <li><Src src="bmi-meta.js"/></li>
         <li><Src src="main.js" lines="#L155"/></li>
       </ul>
     </section>
-
     <section>
       <HL id="bmi-shared">BMI controls with a shared model</HL>
       <div style={{display: "flex"}}>
