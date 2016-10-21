@@ -1,20 +1,15 @@
 import Atom, {holding} from "kefir.atom"
-import K, {classes}    from "karet.util"
+import K, {string}     from "karet.util"
 import React           from "karet"
 
 export const RestrictedInput = ({value, meta: {format, parse}, ...props}) => {
   const edited = Atom(undefined)
   const shown = K(value, edited, (value, edited) =>
                   edited === undefined ? format(value) : edited)
-  const exit = e => {
-    edited.set()
-    e.target.blur()
-  }
-  return <input {...classes("restricted-input",
-                            K(shown, shown =>
-                              parse(shown) !== undefined
-                              ? "valid"
-                              : "invalid"))}
+  const exit = e => {edited.set()
+                     e.target.blur()}
+  const validity = K(shown, s => parse(s) !== undefined ? "valid" : "invalid")
+  return <input className={string`restricted-input ${validity}`}
                 value={shown}
                 onChange={({target: {value: input}}, result = parse(input)) =>
                           result !== undefined
