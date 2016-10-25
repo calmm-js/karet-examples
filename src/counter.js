@@ -1,8 +1,8 @@
 import * as R from "ramda"
-import Atom   from "kefir.atom"
+import * as U from "karet.util"
 import React  from "karet"
 
-export default ({value = Atom(0)}) =>
+export default ({value = U.atom(0)}) =>
   <div>
     <div>Count: {value}</div>
     <button onClick={() => value.modify(R.add(+1))}>+</button>

@@ -1,10 +1,9 @@
-import Atom   from "kefir.atom"
-import K      from "karet.util"
-import React  from "karet"
+import K, * as U from "karet.util"
+import React     from "karet"
 
 import {NumberInput} from "./restricted-input"
 
-export default ({celcius = Atom(0), fahrenheit = Atom()}) =>
+export default ({celcius = U.atom(0), fahrenheit = U.variable()}) =>
   <p>
     <NumberInput type="text" value={celcius}/>°C
     <br/>

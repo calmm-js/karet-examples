@@ -1,20 +1,19 @@
-import * as R          from "ramda"
-import Atom, {holding} from "kefir.atom"
-import K, {bind}       from "karet.util"
-import React           from "karet"
+import * as R from "ramda"
+import * as U from "karet.util"
+import React  from "karet"
 
-import * as U          from "./util"
-
-export default ({elems = Atom([]), entry = Atom("")}) =>
+export default ({elems = U.atom([]), entry = U.atom("")}) =>
   <div>
     <div>
-      <input type="text" {...bind({value: entry})}/>
+      <input type="text" {...U.bind({value: entry})}/>
       <button onClick={() => {const elem = entry.get().trim()
                               if (elem)
-                                holding(() => {elems.modify(R.append(elem))
-                                               entry.set("")})}}>
+                                U.holding(() => {elems.modify(R.append(elem))
+                                                 entry.set("")})}}>
         Add
       </button>
     </div>
-    <ul>{K(elems, U.mapi((elem, i) => <li key={i}>{elem}</li>))}</ul>
+    <ul>{U.seq(elems,
+               U.indices,
+               U.mapCached(i => <li key={i}>{U.view(i, elems)}</li>))}</ul>
   </div>

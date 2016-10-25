@@ -1,16 +1,16 @@
-.bmi .bmi-value {
+.bmi .BMI-value {
   font-weight: bold;
 }
-.bmi.bmi-underweight .bmi-value {
+.bmi.bmi-underweight .BMI-value {
   color: gold;
 }
-.bmi.bmi-normal .bmi-value {
+.bmi.bmi-normal .BMI-value {
   color: green;
 }
-.bmi.bmi-overweight .bmi-value {
+.bmi.bmi-overweight .BMI-value {
   color: orange;
 }
-.bmi.bmi-obese .bmi-value {
+.bmi.bmi-obese .BMI-value {
   color: red;
 }
 .restricted-input.invalid {

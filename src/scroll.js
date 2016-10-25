@@ -1,6 +1,5 @@
-import Atom        from "kefir.atom"
-import React       from "karet"
-import {bindProps} from "karet.util"
+import * as U from "karet.util"
+import React  from "karet"
 
 import {NumberInput} from "./restricted-input"
 
@@ -28,7 +27,7 @@ const cat = [
 `                                                             . : :.:::::::.: :.`].join("\n")
 
 const Scroller = ({scrollTop, scrollLeft}) =>
-  <div {...bindProps({ref: "onScroll", scrollTop, scrollLeft})}
+  <div {...U.bindProps({ref: "onScroll", scrollTop, scrollLeft})}
        style={{display: "inline-block",
                overflowY: "scroll",
                overflowX: "scroll",
@@ -42,7 +41,7 @@ const ScrollInput = ({label, ...props}) =>
     <label>{label} <NumberInput {...props}/></label>
   </div>
 
-export default ({scrollTop = Atom(0), scrollLeft = Atom(0)}) =>
+export default ({scrollTop = U.atom(0), scrollLeft = U.atom(0)}) =>
   <div>
     <Scroller {...{scrollTop, scrollLeft}}/>
     <Scroller {...{scrollTop, scrollLeft}}/>

@@ -1,9 +1,7 @@
-import * as L                  from "partial.lenses"
-import * as R                  from "ramda"
-import Atom                    from "kefir.atom"
-import K, {bindProps, fromIds} from "karet.util"
-import React                   from "karet"
-import {mapi}                  from "./util"
+import * as L    from "partial.lenses"
+import * as R    from "ramda"
+import K, * as U from "karet.util"
+import React     from "karet"
 
 import * as Window from "./window"
 
@@ -26,32 +24,33 @@ const visibleRows = ({tableHeight, rowHeight, rowCount}, scrollTop) =>
 const THead = ({columns}) =>
   <thead>
     <tr>
-      {K(columns, mapi((column, i) =>
-         <th key={i} style={cellWidth(columns)}>{column}</th>))}
+      {U.seq(columns, U.mapIndexed((column, i) =>
+             <th key={i} style={cellWidth(columns)}>{column}</th>))}
     </tr>
   </thead>
 
 const TBody = ({model, visibleRows}) =>
   <tbody>
-    {fromIds(K(visibleRows, ({begin, end}) => R.range(begin, end)), i =>
-       <tr key={i}
-           style={{position: "absolute",
-                   top: K(model, ({rowHeight}) => i * rowHeight + "px"),
-                   borderBottom: "1px solid grey"}}>
-         {K(model.view(L.props("toRow", "columns")), ({toRow, columns}) =>
-            toRow(i).map((column, i) =>
-              <td style={cellWidth(columns)} key={i}>{column}</td>))}
-       </tr>)}
+    {U.seq(K(visibleRows, ({begin, end}) => R.range(begin, end)),
+           U.mapCached(i =>
+             <tr key={i}
+                 style={{position: "absolute",
+                         top: K(model, ({rowHeight}) => i * rowHeight + "px"),
+                         borderBottom: "1px solid grey"}}>
+               {K(model.view(L.props("toRow", "columns")), ({toRow, columns}) =>
+                  toRow(i).map((column, i) =>
+                    <td style={cellWidth(columns)} key={i}>{column}</td>))}
+             </tr>))}
   </tbody>
 
-export default ({model = mock, scrollTop = Atom(0)}) =>
+export default ({model = mock, scrollTop = U.atom(0)}) =>
   <div>
     <table style={{width: "100%",
                    overflowX: "hidden",
                    borderBottom: "1px solid black"}}>
       <THead columns={K(model, R.prop("columns"))}/>
     </table>
-    <div {...bindProps({ref: "onScroll", scrollTop})}
+    <div {...U.bindProps({ref: "onScroll", scrollTop})}
          style={{position: "relative",
                  overflowX: "hidden",
                  borderBottom: "1px solid black",
