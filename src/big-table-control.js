@@ -1,5 +1,4 @@
 import * as L    from "partial.lenses"
-import * as R    from "ramda"
 import K, * as U from "karet.util"
 import React     from "karet"
 
@@ -13,13 +12,13 @@ export const mock = {
   toRow: id => [`${id}`, `${id * 10}`, `${Math.floor(Math.random() * 100)}`]
 }
 
-const cellWidth = columns =>
-  K(Window.innerWidth, columns, (innerWidth, columns) =>
-    ({width: innerWidth / columns.length + "px"}))
+const tableHeight = U.view("tableHeight")
+const rowHeight = U.view("rowHeight")
+const rowCount = U.view("rowCount")
+const columns = U.view("columns")
 
-const visibleRows = ({tableHeight, rowHeight, rowCount}, scrollTop) =>
-  ({begin: Math.floor(scrollTop / rowHeight),
-    end: Math.min(rowCount, Math.ceil((scrollTop + tableHeight) / rowHeight))})
+const cellWidth = columns =>
+  ({width: U.string`${U.divide(Window.innerWidth, U.length(columns))}px`})
 
 const THead = ({columns}) =>
   <thead>
@@ -29,13 +28,16 @@ const THead = ({columns}) =>
     </tr>
   </thead>
 
-const TBody = ({model, visibleRows}) =>
+const TBody = ({model, scrollTop}) =>
   <tbody>
-    {U.seq(K(visibleRows, ({begin, end}) => R.range(begin, end)),
+    {U.seq(U.range(U.floor(U.divide(scrollTop, rowHeight(model))),
+                   U.min(rowCount(model),
+                         U.ceil(U.divide(U.add(scrollTop, tableHeight(model)),
+                                         rowHeight(model))))),
            U.mapCached(i =>
              <tr key={i}
                  style={{position: "absolute",
-                         top: K(model, ({rowHeight}) => i * rowHeight + "px"),
+                         top: U.string`${U.multiply(i, rowHeight(model))}px`,
                          borderBottom: "1px solid grey"}}>
                {K(model.view(L.props("toRow", "columns")), ({toRow, columns}) =>
                   toRow(i).map((column, i) =>
@@ -48,16 +50,15 @@ export default ({model = mock, scrollTop = U.atom(0)}) =>
     <table style={{width: "100%",
                    overflowX: "hidden",
                    borderBottom: "1px solid black"}}>
-      <THead columns={K(model, R.prop("columns"))}/>
+      <THead columns={columns(model)}/>
     </table>
     <div {...U.bindProps({ref: "onScroll", scrollTop})}
          style={{position: "relative",
                  overflowX: "hidden",
                  borderBottom: "1px solid black",
-                 height: K(model, ({tableHeight}) => tableHeight + "px")}}>
-      <table style={{height: K(model, ({rowCount, rowHeight}) =>
-                               rowCount * rowHeight + "px")}}>
-        <TBody {...{model, visibleRows: K(model, scrollTop, visibleRows)}}/>
+                 height: U.string`${tableHeight(model)}px`}}>
+      <table style={{height: U.string`${U.multiply(rowCount(model), rowHeight(model))}px`}}>
+        <TBody {...{model, scrollTop}}/>
       </table>
     </div>
   </div>

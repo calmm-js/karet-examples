@@ -1,7 +1,7 @@
 import "./monkey"
-
-import * as U                  from "karet.util"
-import P, * as L               from "partial.lenses"
+import * as R                  from "ramda"
+import K, * as U               from "karet.util"
+import * as L                  from "partial.lenses"
 import React                   from "karet"
 import makeStored, {expireNow} from "atom.storage"
 import makeUndo                from "atom.undo"
@@ -19,11 +19,11 @@ import Counter           from "./counter"
 import InputAdd          from "./input-add"
 import Phonebook         from "./phonebook-control"
 import Scroll            from "./scroll"
+import Table             from "./table"
 import WithUndoRedo      from "./with-undo-redo"
 import {NumberInput}     from "./restricted-input"
 
 const Undo = props => makeUndo({Atom: U.atom, ...props})
-
 const Stored = ({key, ...props}) =>
   makeStored({key: `karet-examples:${key}`,
               storage: localStorage,
@@ -53,7 +53,7 @@ export default () =>
         const Slider = ({prop, ...props}) =>
           <label>{prop}: {U.view(prop, model)}
             <input type="range" {...props} style={{width: "100%"}}
-                   {...U.bind({value: U.view(P(prop, L.normalize(Number)), model)})}/>
+                   {...U.bind({value: U.view([prop, L.normalize(Number)], model)})}/>
           </label>
 
         return <div>
@@ -190,5 +190,96 @@ export default () =>
         <li><Src src="bmi-split.js"/></li>
         <li><Src src="main.js" lines="#L182-L188"/></li>
       </ul>
+    </section>
+
+    <section>
+      <HL id="table">Table</HL>
+      {U.scope(() => {
+        const model = U.atom({numColumns: 5,
+                              numRows: 10,
+                              filterPattern: "",
+                              sortColumn: 0})
+
+        const numColumns = U.view("numColumns", model)
+        const numRows = U.view("numRows", model)
+
+        const table = U.view("table", model)
+
+        const filterPattern = U.view("filterPattern", model)
+        const sortColumn = U.view("sortColumn", model)
+
+        const filter = K(K(filterPattern, p => new RegExp(p)), re =>
+                         r => R.any(t => re.test(t), r[1]))
+        const ordering = K(sortColumn, k => {
+          if (!k)
+            return ([i], [j]) => i - j
+          const c = Math.abs(k) - 1
+          if (k < 0)
+            return R.comparator((l, r) => l[1][c] > r[1][c])
+          else
+            return R.comparator((l, r) => l[1][c] < r[1][c])
+        })
+
+        const TH = ({value, column}) =>
+          <th>
+            <button onClick={
+              () => sortColumn.modify(c => (c ===  column+1 ? -column-1 :
+                                            c === -column-1 ?         0 :
+                                            column+1))}>
+              {K(sortColumn, value, (c, v) =>
+                 `${c === column+1 ? "+" : c === -column-1 ? "-" : " "}${v}`)}
+            </button>
+          </th>
+        const TD = ({value}) => <td><input type="text" {...U.bind({value})}/></td>
+
+        const nonNegInt = R.pipe(Number, x => 0 <= x ? x : 0, Math.round)
+
+        return <div>
+            <input type="number" {...U.bind({value: U.view(L.normalize(nonNegInt), numColumns)})}/>
+            <input type="number" {...U.bind({value: U.view(L.normalize(nonNegInt), numRows)})}/>
+            <input type="text" placeholder="filter regexp" {...U.bind({value: filterPattern})}/>
+            <Table {...{head: U.view(["head", L.define([])], table),
+                        body: U.view(["body", L.define([])], table),
+                        TH, TD,
+                        filter, ordering}}/>
+            {K(numColumns, numRows, (numColumns, numRows) =>
+               table.set({
+                 head: R.range(0, numColumns),
+                 body: U.seq(
+                   R.range(0, numRows),
+                   R.map(() => U.seq(
+                     R.range(0, numColumns),
+                     R.map(() => Math.round(Math.random() * 1000).toString()))))}))}
+          </div>})}
+      <ul>
+        <li><Src src="table.js"/></li>
+        <li><Src src="main.js" lines="#L158-197"/></li>
+      </ul>
+    </section>
+
+    <section>
+      <HL id="sliders">Sliders</HL>
+      {U.scope((n = U.atom(10), sliders = U.variable()) =>
+               <div>
+                 <input type="number"
+                        {...U.bind({value: U.view(L.rewrite(R.pipe(Number,
+                                                                   Math.round,
+                                                                   R.max(0))),
+                                                  n)})}/>
+                 {U.seq(sliders,
+                        U.indices,
+                        U.mapCached(i => {
+                          const value = U.view(i, sliders)
+                          return <div key={i}>
+                              <input key={i}
+                                     type="range"
+                                     min="0"
+                                     max="100" {...U.bind({value})}/> {value}
+                            </div>}))}
+                 {U.seq(n,
+                        U.range(0),
+                        U.map(() => Math.round(Math.random()*100)),
+                        U.lift1(ss => sliders.set(ss)))}
+               </div>)}
     </section>
   </main>

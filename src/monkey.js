@@ -8,8 +8,5 @@ o.startWith = function (v) {
 }
 
 o.into = function (settable) {
-  return K(this, v => {
-    settable.set(v)
-    return null
-  }).startWith(null)
+  return K(this, v => settable.set(v)).startWith(undefined)
 }

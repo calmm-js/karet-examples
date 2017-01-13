@@ -1,11 +1,11 @@
-import K, * as U from "karet.util"
-import React     from "karet"
+import * as U from "karet.util"
+import React  from "karet"
 
 export default ({title, units, value, ...props}) =>
   <div>
     <div>
       {title}: <span className={`${title}-value`}>
-                 {K(value, Math.round)}
+                 {U.round(value)}
                </span>
       {units}
     </div>
