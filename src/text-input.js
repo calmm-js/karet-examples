@@ -6,7 +6,7 @@ export default ({value = U.atom("")}) => {
   const exit = () => editing.set(false)
   const save = e => {value.set(e.target.value); exit()}
   return <span onDoubleClick={() => editing.set(true)}>
-      {U.ifte(editing, () =>
+      {U.ifte(editing,
               <input key="1"
                      type="text"
                      autoFocus
@@ -14,7 +14,7 @@ export default ({value = U.atom("")}) => {
                      defaultValue={value}
                      onKeyDown={e => e.key === "Enter"  && save(e)
                                   || e.key === "Escape" && exit()}
-                     onBlur={save}/>, () =>
+                     onBlur={save}/>,
               <input key="2"
                      type="text"
                      disabled
