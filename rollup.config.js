@@ -254,7 +254,7 @@ export default {
     })],
     [babel()],
     process.env.NODE_ENV === "production"
-      ? [uglify()]
-      : []
+    ? [uglify()]
+    : []
   )
 }
