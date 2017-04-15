@@ -20,12 +20,12 @@ export default ({
     <tbody>
       {U.seq(K(filter, ordering, body, (filter, ordering, xs) =>
                xs.map((r, i) => [i, r]).filter(filter).sort(ordering).map(([i]) => i)),
-             U.mapCached(
-               (r, row = U.view(r, body)) =>
-                 <tr key={r}>
-                   {U.seq(row,
-                          U.indices,
-                          U.mapCached(c => <TD key={c} row={c} value={U.view(c, row)}/>))}
-                 </tr>))}
+             U.mapCached(r => {
+               const row = U.view(r, body)
+               return <tr key={r}>
+                 {U.seq(row,
+                        U.indices,
+                        U.mapCached(c => <TD key={c} row={c} value={U.view(c, row)}/>))}
+               </tr>}))}
     </tbody>
   </table>
