@@ -259,7 +259,7 @@ export default () =>
 
     <section>
       <HL id="sliders">Sliders</HL>
-      {U.scope((n = U.atom(10), sliders = U.variable()) =>
+      {U.scope((n = U.atom(10), sliders = U.view(L.define([]), U.variable())) =>
                <div>
                  <input type="number"
                         {...U.bind({value: U.view(L.rewrite(R.pipe(Number,
@@ -267,18 +267,48 @@ export default () =>
                                                                    R.max(0))),
                                                   n)})}/>
                  {U.seq(sliders,
-                        U.indices,
-                        U.mapCached(i => {
-                          const value = U.view(i, sliders)
-                          return <div key={i}>
-                              <input key={i}
-                                     type="range"
+                        U.mapElems((value, i) =>
+                          <div key={i}>
+                            <input type="range"
+                                   min="0"
+                                   max="500"
+                                   value={value}
+                                   onChange={U.getProps({value})}/>
+                            <button onClick={() => value.remove()}>Remove</button>
+                            {value}
+                          </div>))}
+                 {U.seq(n,
+                        U.range(0),
+                        U.map(_ => Math.round(Math.random()*500)),
+                        U.lift1(ss => sliders.set(ss)))}
+               </div>)}
+    </section>
+
+    <section>
+      <HL id="sliders-with-ids">Sliders with Ids</HL>
+      {U.scope((n = U.atom(10), sliders = U.view(L.define([]), U.variable())) =>
+               <div>
+                 <input type="number"
+                        {...U.bind({value: U.view(L.rewrite(R.pipe(Number,
+                                                                   Math.round,
+                                                                   R.max(0))),
+                                                  n)})}/>
+                 {U.seq(sliders,
+                        U.mapElemsWithIds(s => s.id, (slider, id) => {
+                          const value = U.view("value", slider)
+                          return <div key={id}>
+                              <input type="range"
                                      min="0"
-                                     max="100" {...U.bind({value})}/> {value}
+                                     max="500"
+                                     value={value}
+                                     onChange={U.getProps({value})}/>
+                              <button onClick={() => slider.remove()}>Remove</button>
+                              {value}
                             </div>}))}
                  {U.seq(n,
                         U.range(0),
-                        U.map(() => Math.round(Math.random()*100)),
+                        U.map(i => ({id: i.toString(),
+                                     value: Math.round(Math.random()*500)})),
                         U.lift1(ss => sliders.set(ss)))}
                </div>)}
     </section>
