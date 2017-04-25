@@ -26,7 +26,7 @@
   "dependencies": {
     "atom.storage": "^0.5.3",
     "atom.undo": "^0.5.3",
-    "karet": "^1.1.7",
+    "karet": "^1.1.10",
     "karet.util": "^0.11.8",
     "kefir": "3.7.x",
     "kefir.atom": "^5.3.4",
