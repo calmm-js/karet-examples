@@ -9,7 +9,7 @@
     "build:js": "cp node_modules/babel-polyfill/dist/polyfill.min.js docs/app.js && NODE_ENV=production rollup -c -i src/app.js -f iife >> docs/app.js",
     "lint": "eslint src test",
     "livereload:docs": "livereload docs",
-    "prepublish": "npm run lint && npm run build",
+    "prepare": "npm run lint && npm run build",
     "watch": "npm run watch:js & npm run watch:css & npm run livereload:docs & wait",
     "watch:css": "npm run build:css && watch-run -p 'src/*.less' 'npm run build:css'",
     "watch:js": "NODE_ENV=dev rollup -w -c --sourcemap inline -i src/app.js -f iife -o docs/app.js"
