@@ -1,5 +1,5 @@
-import K, * as U from "karet.util"
-import React     from "karet"
+import * as React from "karet"
+import K, * as U  from "karet.util"
 
 export const RestrictedInput = ({value, meta: {format, parse}, ...props}) => {
   const edited = U.atom(undefined)

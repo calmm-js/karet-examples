@@ -1,6 +1,6 @@
 import * as Kefir from "kefir"
+import * as React from "karet"
 import K          from "karet.util"
-import React      from "karet"
 
 const oncePerSecond = Kefir.constant().merge(Kefir.interval(1000))
 

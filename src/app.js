@@ -1,5 +1,5 @@
-import React    from "karet"
-import ReactDOM from "react-dom"
+import * as React    from "karet"
+import * as ReactDOM from "react-dom"
 
 import Main from "./main"
 

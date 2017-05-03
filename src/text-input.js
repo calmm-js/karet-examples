@@ -1,5 +1,5 @@
-import * as U from "karet.util"
-import React  from "karet"
+import * as React from "karet"
+import * as U     from "karet.util"
 
 export default ({value = U.atom("")}) => {
   const editing = U.atom(false)

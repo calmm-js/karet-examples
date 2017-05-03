@@ -1,6 +1,6 @@
-import * as R from "ramda"
-import K      from "karet.util"
-import React  from "karet"
+import * as R     from "ramda"
+import * as React from "karet"
+import K          from "karet.util"
 
 export default ({undo, redo, ...props}) =>
   <div>

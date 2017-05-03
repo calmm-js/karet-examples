@@ -1,8 +1,8 @@
 import "./monkey"
-import * as R                  from "ramda"
-import K, * as U               from "karet.util"
 import * as L                  from "partial.lenses"
-import React                   from "karet"
+import * as R                  from "ramda"
+import * as React              from "karet"
+import K, * as U               from "karet.util"
 import makeStored, {expireNow} from "atom.storage"
 import makeUndo                from "atom.undo"
 
