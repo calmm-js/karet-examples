@@ -1,4 +1,3 @@
-import "./monkey"
 import * as L                  from "partial.lenses"
 import * as R                  from "ramda"
 import * as React              from "karet"
@@ -24,6 +23,7 @@ import WithUndoRedo      from "./with-undo-redo"
 import {NumberInput}     from "./restricted-input"
 
 const Undo = props => makeUndo({Atom: U.atom, ...props})
+
 const Stored = ({key, ...props}) =>
   makeStored({key: `karet-examples:${key}`,
               storage: localStorage,

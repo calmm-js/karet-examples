@@ -1,5 +1,5 @@
 import * as React from "karet"
-import K, * as U  from "karet.util"
+import * as U     from "karet.util"
 
 import Slider from "./slider"
 
@@ -12,7 +12,7 @@ export default ({weight = U.atom(80),
     <Slider title="Height" units="cm"     min={140} max={210} value={height}/>
     <Slider title="Weight" units="kg"     min={40}  max={140} value={weight}/>
     <Slider title="BMI"    units="kg/cm²" min={9}   max={71}  value={bmi}/>
-    {K(height, height => M.bmi({height, weight: weight.get()})).into(bmi)}
-    {K(weight, weight => M.bmi({weight, height: height.get()})).into(bmi)}
-    {K(bmi,    bmi    => M.weight({bmi, height: height.get()})).into(weight)}
+    {U.seq(height, U.lift(height => M.bmi({height, weight: weight.get()})), U.set(bmi))}
+    {U.seq(weight, U.lift(weight => M.bmi({weight, height: height.get()})), U.set(bmi))}
+    {U.seq(bmi,    U.lift(bmi    => M.weight({bmi, height: height.get()})), U.set(weight))}
   </div>
