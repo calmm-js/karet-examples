@@ -280,7 +280,7 @@ export default () =>
                  {U.seq(n,
                         U.range(0),
                         U.map(_ => Math.round(Math.random()*500)),
-                        U.lift1(ss => sliders.set(ss)))}
+                        U.set(sliders))}
                </div>)}
     </section>
 
@@ -309,7 +309,7 @@ export default () =>
                         U.range(0),
                         U.map(i => ({id: i.toString(),
                                      value: Math.round(Math.random()*500)})),
-                        U.lift1(ss => sliders.set(ss)))}
+                        U.set(sliders))}
                </div>)}
     </section>
   </main>
