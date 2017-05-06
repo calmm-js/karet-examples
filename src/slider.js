@@ -4,10 +4,13 @@ import * as U     from "karet.util"
 export default ({title, units, value, ...props}) =>
   <div>
     <div>
-      {title}: <span className={`${title}-value`}>
+      {title}: <span className={U.string`${title}-value`}>
                  {U.round(value)}
                </span>
       {units}
     </div>
-    <input type="range" {...U.bind({value})} {...props}/>
+    <input type="range"
+           value={value}
+           onChange={U.getProps({value})}
+           {...props}/>
   </div>
