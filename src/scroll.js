@@ -27,7 +27,8 @@ const cat = [
 `                                                             . : :.:::::::.: :.`].join("\n")
 
 const Scroller = ({scrollTop, scrollLeft}) =>
-  <div {...U.bindProps({ref: "onScroll", scrollTop, scrollLeft})}
+  <div ref={U.setProps({scrollTop, scrollLeft})}
+       onScroll={U.getProps({scrollTop, scrollLeft})}
        style={{display: "inline-block",
                overflowY: "scroll",
                overflowX: "scroll",
