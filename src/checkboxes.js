@@ -14,8 +14,7 @@ export default ({checkeds}) =>
   <div>
     <button onClick={() => checkeds.modify(R.append(false))}>New</button>
     <div style={{display: "flex", flexWrap: "wrap"}}>
-      {U.seq(checkeds,
-             U.indices,
-             U.mapCached(i => <RemovableCheckbox key={i} checked={U.view(i, checkeds)}/>))}
+      {U.seq(checkeds, U.mapElems((checked, i) =>
+        <RemovableCheckbox key={i} checked={checked}/>))}
     </div>
   </div>
