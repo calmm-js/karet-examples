@@ -17,7 +17,7 @@ export const classification = U.lift(bmi =>
 :              "bmi-obese bmi-obese-very")
 
 export const BMI = {
-  augment: U.view(L.augment({bmi})),
+  augment: U.view(L.pick({height: "height", weight: "weight", bmi})),
   bmi: U.view("bmi"),
   height: U.view("height"),
   weight: U.view("weight"),
