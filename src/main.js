@@ -294,7 +294,7 @@ export default () =>
                                                                    R.max(0))),
                                                   n)})}/>
                  {U.seq(sliders,
-                        U.mapElemsWithIds(s => s.id, (slider, id) => {
+                        U.mapElemsWithIds('id', (slider, id) => {
                           const value = U.view("value", slider)
                           return <div key={id}>
                               <input type="range"
