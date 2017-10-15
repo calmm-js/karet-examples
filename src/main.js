@@ -111,7 +111,7 @@ export default () =>
                                                       value})})) =>
              <WithUndoRedo undo={checkeds.undo}
                            redo={checkeds.redo}>
-               <Checkboxes checkeds={checkeds.view(L.define([]))}/>
+               <Checkboxes checkeds={checkeds}/>
              </WithUndoRedo>)}
       <ul>
         <li><Src src="with-undo-redo.js"/></li>
@@ -238,8 +238,8 @@ export default () =>
             <input type="number" {...U.bind({value: U.view(L.normalize(nonNegInt), numColumns)})}/>
             <input type="number" {...U.bind({value: U.view(L.normalize(nonNegInt), numRows)})}/>
             <input type="text" placeholder="filter regexp" {...U.bind({value: filterPattern})}/>
-            <Table {...{head: U.view(["head", L.define([])], table),
-                        body: U.view(["body", L.define([])], table),
+            <Table {...{head: U.view("head", table),
+                        body: U.view("body", table),
                         TH, TD,
                         filter, ordering}}/>
             {K(numColumns, numRows, (numColumns, numRows) =>
@@ -259,7 +259,7 @@ export default () =>
 
     <section>
       <HL id="sliders">Sliders</HL>
-      {U.scope((n = U.atom(10), sliders = U.view(L.define([]), U.variable())) =>
+      {U.scope((n = U.atom(10), sliders = U.atom([])) =>
                <div>
                  <input type="number"
                         {...U.bind({value: U.view(L.rewrite(R.pipe(Number,
@@ -286,7 +286,7 @@ export default () =>
 
     <section>
       <HL id="sliders-with-ids">Sliders with Ids</HL>
-      {U.scope((n = U.atom(10), sliders = U.view(L.define([]), U.variable())) =>
+      {U.scope((n = U.atom(10), sliders = U.atom([])) =>
                <div>
                  <input type="number"
                         {...U.bind({value: U.view(L.rewrite(R.pipe(Number,

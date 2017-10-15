@@ -1,4 +1,3 @@
-import * as L from "partial.lenses"
 import * as R from "ramda"
 import * as U from "karet.util"
 
@@ -13,6 +12,6 @@ export const Contact = {
 }
 
 export const Phonebook = {
-  contacts: U.view(L.define([])),
+  contacts: R.identity,
   addContact: R.pipe(Contact.create, R.append)
 }
